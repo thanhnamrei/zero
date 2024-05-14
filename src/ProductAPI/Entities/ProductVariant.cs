@@ -6,7 +6,6 @@ public class ProductVariant
 {
     [Key]
     public int VariantId { get; set; }
-
     public string Sku { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public int Stock { get; set; }

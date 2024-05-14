@@ -45,9 +45,18 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public async Task<Results<Created, BadRequest<string>>> CreateProduct(CreateProductDto productDto)
     {
-        var product = new Product();
+        var product = new Product
+        {
+            Name = productDto.Name,
+            BrandId = productDto.BrandId,
+            Description = productDto.Description,
+        };
+
+        //TODO
 
         _context.Products.Add(product);
+
+        
 
         var result = await _context.SaveChangesAsync() > 0;
 
