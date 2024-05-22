@@ -22,6 +22,30 @@ namespace ProductAPI.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ProductAPI.Entities.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_brands");
+
+                    b.ToTable("brands", (string)null);
+                });
+
             modelBuilder.Entity("ProductAPI.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -30,6 +54,10 @@ namespace ProductAPI.Data.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("integer")
+                        .HasColumnName("brand_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -50,6 +78,9 @@ namespace ProductAPI.Data.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_products");
+
+                    b.HasIndex("BrandId")
+                        .HasDatabaseName("ix_products_brand_id");
 
                     b.ToTable("products", (string)null);
                 });
@@ -107,6 +138,18 @@ namespace ProductAPI.Data.Migrations
                         .HasDatabaseName("ix_product_variants_product_id");
 
                     b.ToTable("product_variants", (string)null);
+                });
+
+            modelBuilder.Entity("ProductAPI.Entities.Product", b =>
+                {
+                    b.HasOne("ProductAPI.Entities.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_products_brands_brand_id");
+
+                    b.Navigation("Brand");
                 });
 
             modelBuilder.Entity("ProductAPI.Entities.ProductVariant", b =>

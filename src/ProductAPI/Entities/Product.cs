@@ -9,14 +9,17 @@ public class Product
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+    public int BrandId { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
     public DateTime? UpdatedAt { get; set; }
 
+    // navigations
     public ICollection<ProductVariant> Variants { get; set; }
 
-    public ICollection<Category> Categories { get; set; }
-    public int BrandId { get; set; }
-    public Brand Brand { get; set; }
+    //public ICollection<Category> Categories { get; set; }
+    public Brand Brand { get; set; } = null!;
 }
 
 public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
@@ -29,10 +32,10 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
             .HasForeignKey(x => x.ProductId)
             .IsRequired(false);
 
-        builder
-            .HasOne(x => x.Brand)
-            .WithOne(x => x.Product)
-            .HasForeignKey<Product>(x => x.BrandId)
-            .IsRequired(false);
+        //builder
+        //    .HasOne(x => x.Brand)
+        //    .WithMany()
+        //    .HasForeignKey(x => x.BrandId)
+        //    .IsRequired();
     }
 }

@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using ProductAPI.Apis;
 using ProductAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,5 +33,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+app.MapBrandsApi();
 
 app.Run();

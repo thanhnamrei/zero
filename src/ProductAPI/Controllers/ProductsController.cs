@@ -23,6 +23,7 @@ public class ProductsController : ControllerBase
     {
         var result = await _context.Products
             .Include(x => x.Variants)
+            .Include(x => x.Brand)
             .ToListAsync();
 
         return Ok(result);
@@ -43,20 +44,27 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<Results<Created, BadRequest<string>>> CreateProduct(CreateProductDto productDto)
+    public async Task<Results<Created, BadRequest<string>>> CreateProduct(CreateProductDto createProductDto)
     {
         var product = new Product
         {
-            Name = productDto.Name,
-            BrandId = productDto.BrandId,
-            Description = productDto.Description,
+            Name = createProductDto.Name,
+            Description = createProductDto.Description,
+            Variants = new List<ProductVariant>
+            {
+                new ProductVariant
+                {
+                    Sku = createProductDto.Sku,
+                    Color = createProductDto.Color,
+                    Size = createProductDto.Size,
+                    Price = createProductDto.Price,
+                    Stock = createProductDto.Stock,
+                    Material = createProductDto.Material,
+                }
+            }
         };
 
-        //TODO
-
         _context.Products.Add(product);
-
-        
 
         var result = await _context.SaveChangesAsync() > 0;
 
