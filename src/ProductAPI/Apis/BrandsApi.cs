@@ -18,6 +18,7 @@ public static class BrandsApi
         api.MapPost("/", CreateBrand);
         api.MapPut("/{id}", UpdateBrand);
         api.MapDelete("/{id}", DeleteBrand);
+
         return app;
     }
 
