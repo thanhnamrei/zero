@@ -1,0 +1,41 @@
+<div class="flex items-center justify-between">
+  <input
+    type="text"
+    placeholder="Search products ..."
+    class="block border border-gray-300 rounded-lg p-2 ps-10"
+  />
+  <a
+    routerLink="/create-product"
+    class="bg-blue-500 hover:bg-blue-700 rounded text-white font-bold px-2 py-2"
+  >
+    Add Product
+  </a>
+</div>
+
+<table class="w-full text-left text-gray-500 mt-4">
+  <thead class="text-xs uppercase text-gray-700 bg-gray-50">
+    <tr>
+      <th class="px-6 py-3" scope="col">Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Brand</th>
+      <th>Variant Count</th>
+      <th>Created At</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if(products$ | async; as products) { @for (item of products; track $index)
+    {
+    <tr class="border-b">
+      <td class="px-6 py-4">{{ item.id }}</td>
+      <td>{{ item.name }}</td>
+      <td></td>
+      <td>{{ item.brand.name }}</td>
+      <td>{{ item.variants.length }}</td>
+      <td>{{ item.createdAt | textDate }}</td>
+      <td><a>Edit</a></td>
+    </tr>
+    } }
+  </tbody>
+</table>

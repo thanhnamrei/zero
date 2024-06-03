@@ -1,0 +1,22 @@
+<form class="flex flex-col space-y-3" [formGroup]="productForm" (submit)="onSubmit()">
+  <input id="name" formControlName="name" type="text" placeholder="Name" class="text-input" />
+  <textarea id="description" formControlName="description" placeholder="Description" class="text-area"></textarea>
+  <select name="brand" id="brand" formControlName="brandId" title="brand" class="select">
+    @if(brands$ | async; as brands) { @for (item of brands; track $index) {
+    <option [value]="item.id">{{ item.name }}</option>
+    } }
+  </select>
+  <div formArrayName="variants">
+    @for (item of variants.controls; track $index) {
+    <div [formGroupName]="$index" class="flex flex-col border border-gray-100 p-2 space-y-3">
+      <input type="text" placeholder="Color" formControlName="color" class="text-input" />
+      <input type="text" placeholder="Size" formControlName="size" class="text-input" />
+      <input type="text" placeholder="Price" formControlName="price" class="text-input" />
+      <input type="text" placeholder="Stock" formControlName="stock" class="text-input" />
+      <input type="text" placeholder="Material" formControlName="material" class="text-input" />
+      <input type="text" placeholder="Sku" formControlName="sku" class="text-input" />
+    </div>
+    }
+  </div>
+  <button type="submit" [disabled]="!productForm.valid">Submit</button>
+</form>
