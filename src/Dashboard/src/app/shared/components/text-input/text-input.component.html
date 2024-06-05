@@ -1,0 +1,12 @@
+<div>
+  <label class="label">{{ label }}</label>
+  <input
+    type="text"
+    [formControl]="control"
+    [placeholder]="label"
+    class="text-input"
+  />
+  @if(control.invalid) { @if(control.hasError('required')) {
+  <div class="text-red-400">{{ label }}</div>
+  } }
+</div>

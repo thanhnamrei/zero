@@ -11,11 +11,12 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { TextInputComponent } from '../../../shared/components/text-input/text-input.component';
 
 @Component({
   selector: 'app-create-product',
   standalone: true,
-  imports: [AsyncPipe, FormsModule, ReactiveFormsModule],
+  imports: [AsyncPipe, FormsModule, ReactiveFormsModule, TextInputComponent],
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css',
 })
@@ -40,6 +41,10 @@ export class CreateProductComponent implements OnInit {
 
   get variants() {
     return this.productForm.get('variants') as FormArray;
+  }
+
+  get nameControl() {
+    return this.productForm.get('name') as FormControl;
   }
 
   ngOnInit(): void {
