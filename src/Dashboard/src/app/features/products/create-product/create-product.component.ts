@@ -10,8 +10,11 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { TextInputComponent } from '../../../shared/components/text-input/text-input.component';
+import { forbiddenNameValidator } from '../../../shared/directives/forbiddenNameValidator';
+import { UniSkuValidator } from '../../../shared/directives/sku.directive';
 
 @Component({
   selector: 'app-create-product',
@@ -21,10 +24,10 @@ import { TextInputComponent } from '../../../shared/components/text-input/text-i
   styleUrl: './create-product.component.css',
 })
 export class CreateProductComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private skuValidator: UniSkuValidator) {}
 
   productForm = this.formBuilder.group({
-    name: [''],
+    name: ['',[Validators.required,forbiddenNameValidator(/bob/i),this.skuValidator.validate]],
     description: [''],
     brandId: [0],
     variants: this.formBuilder.array([

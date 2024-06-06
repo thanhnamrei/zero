@@ -6,7 +6,13 @@
     [placeholder]="label"
     class="text-input"
   />
-  @if(control.invalid) { @if(control.hasError('required')) {
-  <div class="text-red-400">{{ label }}</div>
-  } }
+  @if(control.invalid && (control.dirty || control.touched)) {
+    @if(control.hasError('required')) {
+      <div class="text-sm text-red-500">{{label}} is required</div>
+    }
+
+    @if(control.hasError('forbiddenName')) {
+      <div class="text-sm text-red-500">  Name cannot be Bob.</div>
+    }
+  }
 </div>
