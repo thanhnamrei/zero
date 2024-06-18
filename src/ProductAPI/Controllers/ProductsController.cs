@@ -19,9 +19,10 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllProducts()
+    public async Task<IActionResult> GetAllProducts(string name)
     {
         var result = await _context.Products
+            .Where(x => string.IsNullOrEmpty(name) || x.Name.Contains(name))
             .Include(x => x.Variants)
             .Include(x => x.Brand)
             .ToListAsync();

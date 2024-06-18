@@ -1,8 +1,21 @@
 import { Routes } from '@angular/router';
-import { ProductsListComponent } from './features/products/products-list/products-list.component';
-import { CreateProductComponent } from './features/products/create-product/create-product.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
-  { path: 'products-list', component: ProductsListComponent },
-  { path: 'create-product', component: CreateProductComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  {
+    path: 'manager',
+    loadChildren: () =>
+      import('./features/manager/manager-routing.module').then(
+        (m) => m.ManagerRoutingModule
+      ),
+  },
+  {
+    path: 'product',
+    loadChildren: () =>
+      import('./features/product/product-routing.module').then(
+        (m) => m.ProductRoutingModule
+      ),
+  },
 ];

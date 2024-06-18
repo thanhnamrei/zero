@@ -1,0 +1,11 @@
+<div>
+  <input
+    type="text"
+    placeholder="Search products ..."
+    class="block border border-gray-300 rounded-lg p-2 ps-10"
+    [formControl]="search"
+  />
+  @if(search.invalid) {
+  <app-msg-error text="Type more than one character to search" />
+  }
+</div>
