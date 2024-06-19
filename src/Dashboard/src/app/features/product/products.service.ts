@@ -1,9 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Brand, Product } from './types';
+import { Observable } from 'rxjs';
+
+export interface IProductService {
+  getProducts(search: string | number | null): Observable<Product[]>;
+  getBrands(): Observable<Brand[]>;
+}
 
 @Injectable({ providedIn: 'root' })
-export class ProductsService {
+export class ProductsService implements IProductService {
   constructor(private httpClient: HttpClient) {}
 
   getProducts(search: string | number | null) {

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, output } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MsgErrorComponent } from '../../../shared/components/msg-error.component';
@@ -11,7 +11,8 @@ import { MsgErrorComponent } from '../../../shared/components/msg-error.componen
   imports: [ReactiveFormsModule, MsgErrorComponent],
 })
 export class ProductSearchComponent {
-  @Output() searchEvent = new EventEmitter<string | null>();
+  // @Output() searchEvent = new EventEmitter<string | null>();
+  searchEvent = output<string | null>({alias: 'onValueChange'});
 
   search = new FormControl('');
 

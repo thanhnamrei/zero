@@ -5,8 +5,6 @@ import { Product } from '../types';
 import { ProductsService } from '../products.service';
 import { TextDatePipe } from '../../../shared/pipes/text-date';
 import { RouterLink } from '@angular/router';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MsgErrorComponent } from '../../../shared/components/msg-error.component';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 
 @Component({
