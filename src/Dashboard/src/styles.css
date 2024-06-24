@@ -18,6 +18,14 @@
     .label {
         @apply block text-gray-700 font-bold mb-2;
     }
+
+    .btn {
+        @apply text-black font-bold py-2 px-4 rounded;
+    }
+
+    .btn-primary {
+        @apply bg-blue-500 hover:bg-blue-700 text-white;
+    } 
 }
 
 html, body { height: 100%; }

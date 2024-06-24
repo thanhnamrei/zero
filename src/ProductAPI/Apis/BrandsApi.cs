@@ -11,7 +11,7 @@ public static class BrandsApi
 {
     public static IEndpointRouteBuilder MapBrandsApi(this IEndpointRouteBuilder app)
     {
-        var api = app.MapGroup("api/Brands");
+        var api = app.MapGroup("api/brands");
 
         api.MapGet("/", GetAllBrands);
         api.MapGet("/{id}", GetBrandById);

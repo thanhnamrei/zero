@@ -1,0 +1,27 @@
+<div>
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if(brands$ | async; as brands) { @for (item of brands; track item.name;
+      let i = $index) {
+      <tr>
+        <td>{{ i }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td></td>
+      </tr>
+      } } @else {
+      <tr>
+        <td colspan="4">no data</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

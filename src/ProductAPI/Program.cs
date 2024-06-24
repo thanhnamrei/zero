@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using ProductAPI.Apis;
 using ProductAPI.Data;
@@ -12,11 +11,6 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
         .UseSnakeCaseNamingConvention();
 });
 
-//builder.Services.AddControllers()
-//    .AddJsonOptions(options =>
-//    {
-//        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-//    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -43,7 +37,6 @@ app.UseCors();
 
 app.UseHttpsRedirection();
 
-//app.MapControllers();
 app.MapBrandsApi();
 app.MapProductsApi();
 

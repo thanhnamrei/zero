@@ -1,0 +1,36 @@
+<div class="flex items-center justify-end">
+  <button class="flex items-center btn bg-">
+    <mat-icon fontIcon="add" class="text-red-500" />
+    <span>Import Excel</span>
+  </button>
+</div>
+<form
+  action=""
+  class="space-y-4"
+  [formGroup]="brandForm"
+  (submit)="createBrand()"
+>
+  <div class="form-group">
+    <label for="name" class="label">Name</label>
+    <input
+      type="text"
+      class="text-input"
+      id="name"
+      name="name"
+      formControlName="name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="description" class="label">Description</label>
+    <textarea
+      class="form-control"
+      id="description"
+      name="description"
+      class="text-input"
+      formControlName="description"
+    ></textarea>
+  </div>
+  <div class="flex justify-end mt-6">
+    <button type="submit" class="btn btn-primary">Create</button>
+  </div>
+</form>

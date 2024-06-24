@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using ProductAPI.Data;
 using ProductAPI.DTOs;
 using ProductAPI.Entities;
+using ProductAPI.Extensions;
 
 namespace ProductAPI.Apis;
 
@@ -11,7 +12,7 @@ public static class ProductsApi
 {
 	public static IEndpointRouteBuilder MapProductsApi(this IEndpointRouteBuilder app)
 	{
-		var api = app.MapGroup("api/Products");
+		var api = app.MapGroup("api/products");
 
 		api.MapGet("/", GetAllProducts);
 		api.MapGet("/{id}", GetProductById);
@@ -22,16 +23,16 @@ public static class ProductsApi
 
 	}
 
-	private static async Task<Results<Ok<int>,BadRequest>> CreateProductsFromFile(IFormFile formFile)
+	private static async Task<Results<Ok<List<ProductDataRow>>,BadRequest>> CreateProductsFromFile(IFormFile formFile)
 	{
 		if(formFile.Length > 0 && formFile.FileName.EndsWith(".xlsx"))
 		{
 			using var stream = formFile.OpenReadStream();
 			using var package = new ExcelPackage(stream);
 			var worksheet = package.Workbook.Worksheets[0];
-			var rowCount = worksheet.Dimension.Rows;
+			var result = worksheet.ToList<ProductDataRow>();
 
-			return TypedResults.Ok(rowCount);
+			return TypedResults.Ok(result);
 		}
 
 		return TypedResults.BadRequest();
@@ -67,8 +68,7 @@ public static class ProductsApi
 		{
 			Name = createProductDto.Name,
 			Description = createProductDto.Description,
-			Variants = new List<ProductVariant>
-			{
+			Variants = createProductDto.Variants.Select(createProductDto => 
 				new ProductVariant
 				{
 					Sku = createProductDto.Sku,
@@ -77,11 +77,11 @@ public static class ProductsApi
 					Price = createProductDto.Price,
 					Stock = createProductDto.Stock,
 					Material = createProductDto.Material,
-				}
-			}
+				}).ToList(),
 		};
 
 		context.Products.Add(product);
+		
 		await context.SaveChangesAsync();
 
 		return TypedResults.Created();

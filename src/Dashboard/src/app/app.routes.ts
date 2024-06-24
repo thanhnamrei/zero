@@ -18,4 +18,11 @@ export const routes: Routes = [
         (m) => m.ProductRoutingModule
       ),
   },
+  {
+    path: 'brand',
+    loadChildren: () =>
+      import('./features/brand/brand-routing.module').then(
+        (m) => m.BrandRoutingModule
+      ),
+  },
 ];
