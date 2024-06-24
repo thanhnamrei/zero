@@ -15,11 +15,8 @@ public class Product
 
     public DateTime? UpdatedAt { get; set; }
 
-    // navigations
     public ICollection<ProductVariant> Variants { get; set; }
-
-    //public ICollection<Category> Categories { get; set; }
-    public Brand Brand { get; set; } = null!;
+    public Brand Brand { get; set; }
 }
 
 public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
@@ -31,11 +28,5 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
             .WithOne(x => x.Product)
             .HasForeignKey(x => x.ProductId)
             .IsRequired(false);
-
-        //builder
-        //    .HasOne(x => x.Brand)
-        //    .WithMany()
-        //    .HasForeignKey(x => x.BrandId)
-        //    .IsRequired();
     }
 }

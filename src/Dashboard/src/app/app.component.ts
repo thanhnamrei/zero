@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {  RouterOutlet } from '@angular/router';
-import { LinkComponent } from './shared/components/link/link.component';
+import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LinkComponent],
+  imports: [RouterOutlet,MatIconModule, NavigationMenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Brand, Product } from './types';
+import { Brand, IProduct } from './types';
 import { Observable } from 'rxjs';
 
 export interface IProductService {
-  getProducts(search: string | number | null): Observable<Product[]>;
+  getProducts(search: string | number | null): Observable<IProduct[]>;
   getBrands(): Observable<Brand[]>;
 }
 
@@ -22,7 +22,7 @@ export class ProductsService implements IProductService {
       uriParams = uriParams.set('id', search);
     }
 
-    return this.httpClient.get<Product[]>(
+    return this.httpClient.get<IProduct[]>(
       'http://localhost:5108/api/Products',
       { params: uriParams }
     );
@@ -30,5 +30,10 @@ export class ProductsService implements IProductService {
 
   getBrands() {
     return this.httpClient.get<Brand[]>('http://localhost:5108/api/Brands');
+  }
+
+  createProduct(body: any) {
+    console.log(body)
+    return this.httpClient.post("http://localhost:5108/api/Products",body)
   }
 }

@@ -26,7 +26,6 @@ export class User implements IUser {
             return new User();
         }
 
-
         return new User(
             user._id,
             user.name,

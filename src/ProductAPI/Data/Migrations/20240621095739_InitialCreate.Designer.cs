@@ -12,7 +12,7 @@ using ProductAPI.Data;
 namespace ProductAPI.Data.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20240515080123_InitialCreate")]
+    [Migration("20240621095739_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -146,7 +146,7 @@ namespace ProductAPI.Data.Migrations
             modelBuilder.Entity("ProductAPI.Entities.Product", b =>
                 {
                     b.HasOne("ProductAPI.Entities.Brand", "Brand")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -163,6 +163,11 @@ namespace ProductAPI.Data.Migrations
                         .HasConstraintName("fk_product_variants_products_product_id");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ProductAPI.Entities.Brand", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ProductAPI.Entities.Product", b =>

@@ -143,7 +143,7 @@ namespace ProductAPI.Data.Migrations
             modelBuilder.Entity("ProductAPI.Entities.Product", b =>
                 {
                     b.HasOne("ProductAPI.Entities.Brand", "Brand")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -160,6 +160,11 @@ namespace ProductAPI.Data.Migrations
                         .HasConstraintName("fk_product_variants_products_product_id");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ProductAPI.Entities.Brand", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ProductAPI.Entities.Product", b =>

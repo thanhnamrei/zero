@@ -51,18 +51,15 @@ public class ProductsController : ControllerBase
         {
             Name = createProductDto.Name,
             Description = createProductDto.Description,
-            Variants = new List<ProductVariant>
+            Variants = createProductDto.Variants.Select(x => new ProductVariant
             {
-                new ProductVariant
-                {
-                    Sku = createProductDto.Sku,
-                    Color = createProductDto.Color,
-                    Size = createProductDto.Size,
-                    Price = createProductDto.Price,
-                    Stock = createProductDto.Stock,
-                    Material = createProductDto.Material,
-                }
-            }
+                Sku = x.Sku,
+                Color = x.Color,
+                Material = x.Material,
+                Size = x.Size,
+                Price = x.Price,
+                Stock = x.Stock,
+            }).ToList(),
         };
 
         _context.Products.Add(product);

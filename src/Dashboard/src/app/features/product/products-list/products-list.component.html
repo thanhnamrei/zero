@@ -1,7 +1,7 @@
 <div class="flex items-center justify-between">
   <product-search (onValueChange)="doSearch($event)" />
   <a
-    routerLink="/create-product"
+    routerLink="/product/create-product"
     class="bg-blue-500 hover:bg-blue-700 rounded text-white font-bold px-2 py-2"
   >
     Add Product
@@ -35,6 +35,4 @@
     }
   </tbody>
 </table>
-} @else {
-<div>Loading...</div>
 }

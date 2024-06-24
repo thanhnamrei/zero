@@ -1,7 +1,7 @@
 import { Component, OnInit, effect, inject } from '@angular/core';
 import { Observable, debounceTime } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { Product } from '../types';
+import { IProduct } from '../types';
 import { ProductsService } from '../products.service';
 import { TextDatePipe } from '../../../shared/pipes/text-date';
 import { RouterLink } from '@angular/router';
@@ -15,7 +15,7 @@ import { ProductSearchComponent } from '../product-search/product-search.compone
   styleUrl: './products-list.component.css',
 })
 export class ProductsListComponent implements OnInit {
-  products$!: Observable<Product[]>;
+  products$!: Observable<IProduct[]>;
 
   private productService = inject(ProductsService);
 

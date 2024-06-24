@@ -1,71 +1,35 @@
-<form
-  class="flex flex-col space-y-3"
-  [formGroup]="productForm"
-  (submit)="onSubmit()"
->
-  <app-text-input [control]="nameControl" label="Name" />
+<form class="flex flex-col space-y-3" [formGroup]="productForm" (submit)="onSubmit()">
+  <input type="text" placeholder="Name" formControlName="name" class="text-input" />
 
-  <textarea
-    id="description"
-    formControlName="description"
-    placeholder="Description"
-    class="text-area"
-  ></textarea>
-  <select
-    name="brand"
-    id="brand"
-    formControlName="brandId"
-    title="brand"
-    class="select"
-  >
+  <textarea id="description" formControlName="description" placeholder="Description" class="text-area"></textarea>
+
+  <select name="brand" id="brand" formControlName="brandId" title="brand" class="select">
+    <option value="0">Select brand</option>
     @if(brands$ | async; as brands) { @for (item of brands; track $index) {
     <option [value]="item.id">{{ item.name }}</option>
     } }
   </select>
-  <div formArrayName="variants">
-    @for (item of variants.controls; track $index) {
-    <div
-      [formGroupName]="$index"
-      class="flex flex-col border border-gray-100 p-2 space-y-3"
-    >
-      <input
-        type="text"
-        placeholder="Color"
-        formControlName="color"
-        class="text-input"
-      />
-      <input
-        type="text"
-        placeholder="Size"
-        formControlName="size"
-        class="text-input"
-      />
-      <input
-        type="text"
-        placeholder="Price"
-        formControlName="price"
-        class="text-input"
-      />
-      <input
-        type="text"
-        placeholder="Stock"
-        formControlName="stock"
-        class="text-input"
-      />
-      <input
-        type="text"
-        placeholder="Material"
-        formControlName="material"
-        class="text-input"
-      />
-      <input
-        type="text"
-        placeholder="Sku"
-        formControlName="sku"
-        class="text-input"
-      />
+  <div formArrayName="variants" class="space-y-2">
+    <div class="flex items-center justify-start gap-x-10">
+      <div>Product Variant(s)</div>
+      <button class="flex items-center justify-start gap-x-1" (click)="addVariant()">
+        <mat-icon aria-hidden="false" fontIcon="add"/>
+        Add Variant
+      </button>
+    </div>
+    @for (position of variantsArray.controls; track position; let i = $index) {
+    <div [formGroupName]="i" class="flex gap-x-4 p-2 border border-gray-100">
+      <input type="text" placeholder="Color" formControlName="color" class="text-input" />
+      <input type="text" placeholder="Size" formControlName="size" class="text-input" />
+      <input type="text" placeholder="Price" formControlName="price" class="text-input" />
+      <input type="text" placeholder="Stock" formControlName="stock" class="text-input" />
+      <input type="text" placeholder="Material" formControlName="material" class="text-input" />
+      <input type="text" placeholder="Sku" formControlName="sku" class="text-input" />
+      <button (click)="variantsArray.removeAt(i)">
+        <mat-icon fontIcon="delete"/>
+      </button>
     </div>
     }
   </div>
-  <button type="submit" [disabled]="!productForm.valid">Submit</button>
+  <button class="border px-2 py-3 rounded-lg" type="submit">Submit</button>
 </form>

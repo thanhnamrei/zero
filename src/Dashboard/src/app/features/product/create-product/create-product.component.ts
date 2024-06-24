@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Brand } from '../types';
+import { Brand, IProduct, Variant } from '../types';
 import { ProductsService } from '../products.service';
 import { AsyncPipe } from '@angular/common';
 import {
@@ -10,39 +10,65 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { TextInputComponent } from '../../../shared/components/text-input/text-input.component';
-import { forbiddenNameValidator } from '../../../shared/directives/forbiddenNameValidator';
-// import { UniSkuValidator } from '../../../shared/directives/sku.directive';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-product',
   standalone: true,
-  imports: [AsyncPipe, FormsModule, ReactiveFormsModule, TextInputComponent],
+  imports: [AsyncPipe, MatIconModule, FormsModule, ReactiveFormsModule, TextInputComponent],
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css',
 })
 export class CreateProductComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder) {}
+  readonly formBuilder = inject(FormBuilder);
+  productForm!: FormGroup;
 
-  productForm = this.formBuilder.group({
-    name: ['',[Validators.required,forbiddenNameValidator(/bob/i)]],
-    description: [''],
-    brandId: [0],
-    variants: this.formBuilder.array([
-      this.formBuilder.group({
-        color: [''],
-        size: [''],
-        price: [''],
-        stock: [''],
-        sku: [''],
-        material: [''],
-      }),
-    ]),
-  });
+  constructor() {
+    this.buildProductForm();
+  }
 
-  get variants() {
+
+
+  buildProductForm(product?: IProduct) {
+    this.productForm = this.formBuilder.group({
+      name: [product?.name ?? ''],
+      description: [product?.description ?? ''],
+      brandId: [0],
+      variants: this.formBuilder.array(this.buildVariantArray(product?.variants || [])),
+    });
+  }
+
+  buildVariantArray(variants?: Variant[]) {
+    const groups = [];
+    if (variants?.length === 0) {
+      groups.push(this.buildVariantFormControl(1));
+    } else {
+      variants?.forEach((v) => {
+        groups.push(this.buildVariantFormControl(v.variantId))
+      })
+    }
+
+    return groups;
+  }
+
+  buildVariantFormControl(index: number) {
+    return this.formBuilder.group({
+      color: [''],
+      size: [''],
+      price: [''],
+      stock: [''],
+      sku: [''],
+      material: [''],
+    });
+  }
+
+  addVariant() {
+    this.variantsArray.push(this.buildVariantFormControl(this.productForm.get('variants')?.value.length + 1))
+  }
+
+  get variantsArray() {
     return this.productForm.get('variants') as FormArray;
   }
 
@@ -58,6 +84,6 @@ export class CreateProductComponent implements OnInit {
   private productsService: ProductsService = inject(ProductsService);
 
   onSubmit() {
-    console.log(this.productForm.value);
+    this.productsService.createProduct(this.productForm.value).subscribe();
   }
 }
