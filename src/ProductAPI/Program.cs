@@ -12,11 +12,11 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
         .UseSnakeCaseNamingConvention();
 });
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    });
+//builder.Services.AddControllers()
+//    .AddJsonOptions(options =>
+//    {
+//        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+//    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -43,7 +43,8 @@ app.UseCors();
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+//app.MapControllers();
 app.MapBrandsApi();
+app.MapProductsApi();
 
 app.Run();

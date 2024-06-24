@@ -6,8 +6,6 @@ import { LinkComponent } from '../shared/components/link/link.component';
   standalone: true,
   imports: [LinkComponent],
   templateUrl: './navigation-menu.component.html',
-  styleUrl: './navigation-menu.component.css'
+  styleUrl: './navigation-menu.component.css',
 })
-export class NavigationMenuComponent {
-
-}
+export class NavigationMenuComponent {}
