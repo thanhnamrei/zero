@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Mapster;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using ProductAPI.Data;
@@ -38,12 +39,13 @@ public static class ProductsApi
 		return TypedResults.BadRequest();
 	}
 
-	private static async Task<Ok<List<Product>>> GetAllProducts(string name, ProductDbContext context)
+	private static async Task<Ok<List<ProductDto>>> GetAllProducts(string? name, ProductDbContext context)
 	{
 		var result = await context.Products
 			.Where(x => string.IsNullOrEmpty(name) || x.Name.Contains(name))
 			.Include(x => x.Variants)
 			.Include(x => x.Brand)
+			.ProjectToType<ProductDto>()
 			.ToListAsync();
 
 		return TypedResults.Ok(result);
@@ -68,6 +70,7 @@ public static class ProductsApi
 		{
 			Name = createProductDto.Name,
 			Description = createProductDto.Description,
+			BrandId = createProductDto.BrandId,		
 			Variants = createProductDto.Variants.Select(createProductDto => 
 				new ProductVariant
 				{

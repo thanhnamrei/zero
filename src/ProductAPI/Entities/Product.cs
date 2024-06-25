@@ -27,5 +27,6 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
             .WithOne(x => x.Product)
             .HasForeignKey(x => x.ProductId)
             .IsRequired(false);
-    }
+
+	}
 }

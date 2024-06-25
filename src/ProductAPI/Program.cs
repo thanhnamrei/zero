@@ -11,7 +11,7 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
         .UseSnakeCaseNamingConvention();
 });
 
-
+//builder.Services.AddMapster();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(o =>
