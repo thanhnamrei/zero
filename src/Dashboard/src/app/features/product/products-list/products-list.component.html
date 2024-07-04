@@ -1,8 +1,8 @@
 <div class="flex items-center justify-between">
   <product-search (onValueChange)="doSearch($event)" />
-  <a routerLink="/product/create-product" class="btn btn-primary">
+  <button routerLink="/product/create" class="btn btn-primary">
     Add Product
-  </a>
+  </button>
 </div>
 
 @if(products$ | async; as products) {
@@ -27,9 +27,19 @@
       <td>{{ item.brand.name }}</td>
       <td>{{ item.variants.length }}</td>
       <td>{{ item.createdAt | textDate }}</td>
-      <td><a>Edit</a></td>
+      <td>
+        <button
+          type="button"
+          title=""
+          [routerLink]="['../list', { outlets: { detail: ['variants'] } }]"
+        >
+          <mat-icon fontIcon="visibility" />
+        </button>
+      </td>
     </tr>
     }
   </tbody>
 </table>
 }
+
+<router-outlet name="detail"></router-outlet>

@@ -16,9 +16,9 @@ public class BrandEntityTypeConfiguration : IEntityTypeConfiguration<Brand>
 {
     public void Configure(EntityTypeBuilder<Brand> builder)
     {
-        builder.HasMany(x => x.Products)
-            .WithOne(p => p.Brand)
-            .HasForeignKey(p => p.BrandId)
-            .OnDelete(DeleteBehavior.Cascade);
+        //builder.HasMany(x => x.Products)
+        //    .WithOne(p => p.Brand)
+        //    .HasForeignKey(p => p.BrandId)
+        //    .OnDelete(DeleteBehavior.Cascade);
     }
 }

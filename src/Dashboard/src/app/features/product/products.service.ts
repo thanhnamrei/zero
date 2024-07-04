@@ -23,17 +23,17 @@ export class ProductsService implements IProductService {
     }
 
     return this.httpClient.get<IProduct[]>(
-      'http://localhost:5108/api/Products',
+      'http://localhost:5108/api/products',
       { params: uriParams }
     );
   }
 
   getBrands() {
-    return this.httpClient.get<Brand[]>('http://localhost:5108/api/Brands');
+    return this.httpClient.get<Brand[]>('http://localhost:5108/api/brands');
   }
 
   createProduct(body: any) {
-    console.log(body)
-    return this.httpClient.post("http://localhost:5108/api/Products",body)
+    console.log(body);
+    return this.httpClient.post('http://localhost:5108/api/Products', body);
   }
 }

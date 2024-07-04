@@ -4,11 +4,16 @@ using ProductAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddDbContext<ProductDbContext>(options =>
+//{
+//    options
+//        .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+//        .UseSnakeCaseNamingConvention();
+//});
+
 builder.Services.AddDbContext<ProductDbContext>(options =>
 {
-    options
-        .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-        .UseSnakeCaseNamingConvention();
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection"));
 });
 
 //builder.Services.AddMapster();

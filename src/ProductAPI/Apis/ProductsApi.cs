@@ -44,7 +44,7 @@ public static class ProductsApi
 		var result = await context.Products
 			.Where(x => string.IsNullOrEmpty(name) || x.Name.Contains(name))
 			.Include(x => x.Variants)
-			.Include(x => x.Brand)
+			//.Include(x => x.Brand)
 			.ProjectToType<ProductDto>()
 			.ToListAsync();
 
@@ -70,7 +70,7 @@ public static class ProductsApi
 		{
 			Name = createProductDto.Name,
 			Description = createProductDto.Description,
-			BrandId = createProductDto.BrandId,		
+			//BrandId = createProductDto.BrandId,		
 			Variants = createProductDto.Variants.Select(createProductDto => 
 				new ProductVariant
 				{
