@@ -22,6 +22,23 @@ namespace ProductAPI.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ProductAPI.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("ProductAPI.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -47,6 +64,47 @@ namespace ProductAPI.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ProductAPI.Entities.ProductCategory", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("ProductAPI.Entities.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VariantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VariantId")
+                        .IsUnique();
+
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("ProductAPI.Entities.ProductVariant", b =>
@@ -97,6 +155,36 @@ namespace ProductAPI.Data.Migrations
                     b.ToTable("ProductVariants");
                 });
 
+            modelBuilder.Entity("ProductAPI.Entities.ProductCategory", b =>
+                {
+                    b.HasOne("ProductAPI.Entities.Category", "Category")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProductAPI.Entities.Product", "Product")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ProductAPI.Entities.ProductImage", b =>
+                {
+                    b.HasOne("ProductAPI.Entities.ProductVariant", "ProductVariant")
+                        .WithOne("ProductImage")
+                        .HasForeignKey("ProductAPI.Entities.ProductImage", "VariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductVariant");
+                });
+
             modelBuilder.Entity("ProductAPI.Entities.ProductVariant", b =>
                 {
                     b.HasOne("ProductAPI.Entities.Product", "Product")
@@ -108,9 +196,22 @@ namespace ProductAPI.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ProductAPI.Entities.Category", b =>
+                {
+                    b.Navigation("ProductCategories");
+                });
+
             modelBuilder.Entity("ProductAPI.Entities.Product", b =>
                 {
+                    b.Navigation("ProductCategories");
+
                     b.Navigation("Variants");
+                });
+
+            modelBuilder.Entity("ProductAPI.Entities.ProductVariant", b =>
+                {
+                    b.Navigation("ProductImage")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

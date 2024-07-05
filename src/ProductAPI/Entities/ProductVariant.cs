@@ -8,6 +8,7 @@ public class ProductVariant
 {
     [Key]
     public int VariantId { get; set; }
+
     public string Sku { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public int Stock { get; set; }
@@ -16,35 +17,34 @@ public class ProductVariant
     public string? Material { get; set; }
     public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
-
-	public int ProductId { get; set; }
-	public Product? Product { get; set; }
+    public int ProductId { get; set; }
+    public Product? Product { get; set; }
+    public ProductImage ProductImage { get; set; }
 }
-
 
 public class ProductVariantEntityTypeConfiguration : IEntityTypeConfiguration<ProductVariant>
 {
-	public void Configure(EntityTypeBuilder<ProductVariant> builder)
-	{
-		//builder
-		//	.HasOne(x => x.ProductImage)
-		//	.WithOne()
-		//	.HasForeignKey<ProductVariant>(x => x.ProductImageId)
-		//	.IsRequired(false);
+    public void Configure(EntityTypeBuilder<ProductVariant> builder)
+    {
+        builder.Property(x => x.Price)
+            .HasPrecision(18, 4);
 
-		builder.Property(x => x.Price)
-			.HasPrecision(18,4);
+        builder.Property(x => x.Sku)
+            .HasMaxLength(50);
 
-		builder.Property(x => x.Sku)
-			.HasMaxLength(50);
+        builder.Property(x => x.Color)
+            .HasMaxLength(50);
 
-		builder.Property(x => x.Color)
-			.HasMaxLength(50);
+        builder.Property(x => x.Size)
+            .HasMaxLength(50);
 
-		builder.Property(x => x.Size)
-			.HasMaxLength(50);
+        builder.Property(x => x.Material)
+            .HasMaxLength(50);
 
-		builder.Property(x => x.Material)
-			.HasMaxLength(50);
-	}
+        //builder
+        //    .HasOne(x => x.Product)
+        //    .WithMany(z => z.Variants)
+        //    .HasPrincipalKey(x => x.Id)
+        //    .OnDelete(DeleteBehavior.ClientSetNull);
+    }
 }

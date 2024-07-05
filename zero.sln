@@ -19,11 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductAPI", "src\ProductAP
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "e2e", "e2e", "{F4A95159-B840-4F6E-B18D-D47BF4BC20BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetSelenium", "e2e\DotnetSelenium\DotnetSelenium\DotnetSelenium.csproj", "{777FDEF3-05CE-4941-AC0C-16E101E70A1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetSelenium", "e2e\DotnetSelenium\DotnetSelenium\DotnetSelenium.csproj", "{777FDEF3-05CE-4941-AC0C-16E101E70A1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{879FC180-4A86-49EB-BC62-31735B265CF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductAPI.Unitest", "tests\ProductAPI.Unitest\ProductAPI.Unitest.csproj", "{72A82E43-396B-40CB-B269-85F6748A244F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductAPI.UnitTests", "tests\ProductAPI.Unitest\ProductAPI.UnitTests.csproj", "{72A82E43-396B-40CB-B269-85F6748A244F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

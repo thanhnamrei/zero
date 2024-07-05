@@ -1,6 +1,8 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using ProductAPI.Apis;
 using ProductAPI.Data;
+using ProductAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,13 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection"));
 });
 
-//builder.Services.AddMapster();
+#region services
+
+builder.Services.AddScoped<IProductService, ProductService>();
+
+#endregion services
+
+builder.Services.AddMapster();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(o =>
@@ -24,10 +32,8 @@ builder.Services.AddCors(o =>
     o.AddDefaultPolicy(x =>
     {
         x.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
-
-	});
+    });
 });
-
 
 var app = builder.Build();
 
