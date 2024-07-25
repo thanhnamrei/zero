@@ -5,7 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class TextDatePipe implements PipeTransform {
-  transform(value: string) {
-    return new Date(value).toDateString();
+  transform(value: Date | null): string {
+    if (!value) {
+      return '';
+    }
+    return value.toDateString();
   }
 }

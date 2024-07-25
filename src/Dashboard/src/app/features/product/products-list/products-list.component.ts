@@ -1,12 +1,13 @@
 import { Component, OnInit, effect, inject } from '@angular/core';
-import { Observable, debounceTime } from 'rxjs';
+import { Observable, debounceTime, pipe } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { IProduct } from '../types';
+import { Product, ProductViewModel } from '../types';
 import { ProductsService } from '../products.service';
 import { TextDatePipe } from '../../../shared/pipes/text-date';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { MatIconModule } from '@angular/material/icon';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-products-list',
@@ -23,15 +24,26 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './products-list.component.css',
 })
 export class ProductsListComponent implements OnInit {
-  products$!: Observable<IProduct[]>;
+  readonly productService = inject(ProductsService);
+  // products$!: Observable<Product[]>;
 
-  private productService = inject(ProductsService);
+  products: ProductViewModel[] = [];
 
   ngOnInit(): void {
     this.doSearch(null);
   }
 
   doSearch($event: string | null) {
-    this.products$ = this.productService.getProducts($event);
+    this.productService.getProducts($event).subscribe(
+      pipe(
+        (products) => {
+          this.products = products.map((p) => new ProductViewModel(p));
+        },
+        (error) => {
+          this.products = [];
+          console.error(error);
+        }
+      )
+    );
   }
 }

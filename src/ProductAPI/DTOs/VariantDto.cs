@@ -1,6 +1,4 @@
-﻿using ProductAPI.Entities;
-
-namespace ProductAPI.DTOs;
+﻿namespace ProductAPI.DTOs;
 
 public class VariantDto
 {

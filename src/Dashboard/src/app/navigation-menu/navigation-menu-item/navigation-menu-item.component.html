@@ -1,0 +1,13 @@
+<li>
+  <div class="flex items-center justify-between">
+    <app-link href="product/list" text="Products" />
+    <button type="button" (click)="collapse()">
+      <mat-icon aria-hidden="false" fontIcon="keyboard_arrow_down"></mat-icon>
+    </button>
+  </div>
+  <ul [ngClass]="open ? 'block' : 'hidden'">
+    <li>
+      <app-link href="product/create" text="Create Product" />
+    </li>
+  </ul>
+</li>

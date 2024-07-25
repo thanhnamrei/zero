@@ -21,6 +21,7 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
 #region services
 
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 #endregion services
 
@@ -50,5 +51,6 @@ app.UseHttpsRedirection();
 
 app.MapBrandsApi();
 app.MapProductsApi();
+app.MapCategoriesApi();
 
 app.Run();

@@ -16,5 +16,5 @@ public class CreateProductDto
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
     public List<CreateVariantDto> Variants { get; set; } = new();
-    public List<CreateCategoryDto> CreateCategories { get; set; } = new();
+    public List<CreateCategoryDto> Categories { get; set; } = new();
 }

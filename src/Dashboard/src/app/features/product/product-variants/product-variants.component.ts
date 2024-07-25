@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductVariantsComponent implements OnInit {
   ngOnInit(): void {
-    console.log(this.activeRoute?.snapshot?.data['variants']);
+    // console.log(this.activeRoute?.snapshot?.data['variants']);
   }
   readonly activeRoute = inject(ActivatedRoute);
 }

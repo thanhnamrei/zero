@@ -2,18 +2,24 @@
   <div class="h-full px-3 py-4 bg-gray-50 overflow-y-auto">
     <ul class="space-y-2 font-medium">
       <li><app-link href="" text="Dashboard" /></li>
-      <li>
-        <app-link href="product/list" text="Products" />
-      </li>
-      <li>
-        <app-link href="product/create" text="Create Product" />
-      </li>
-      <li>
-        <app-link href="brand/list" text="Brands" />
-      </li>
-      <li>
-        <app-link href="brand/create" text="Create Brand" />
-      </li>
+      <app-navigation-menu-item />
+      <app-navigation-menu-item />
+      <!-- <li>
+        <div class="flex items-center justify-between">
+          <app-link href="brand/list" text="Brands" />
+          <button type="button">
+            <mat-icon
+              aria-hidden="false"
+              fontIcon="keyboard_arrow_down"
+            ></mat-icon>
+          </button>
+        </div>
+        <ul class="hidden">
+          <li>
+            <app-link href="brand/create" text="Create Brand" />
+          </li>
+        </ul>
+      </li> -->
     </ul>
   </div>
 </aside>

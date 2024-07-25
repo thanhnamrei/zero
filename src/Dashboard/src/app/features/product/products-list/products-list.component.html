@@ -5,15 +5,18 @@
   </button>
 </div>
 
-@if(products$ | async; as products) {
+@if(products.length) {
 <table class="w-full text-left text-gray-500 mt-4">
   <thead class="text-xs uppercase text-gray-700 bg-gray-50">
     <tr>
       <th class="px-6 py-3" scope="col">Id</th>
       <th>Name</th>
       <th>Description</th>
-      <th>Brand</th>
+      <!-- <th>Brand</th> -->
       <th>Variant Count</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Categories</th>
       <th>Created At</th>
       <th>Action</th>
     </tr>
@@ -24,17 +27,20 @@
       <td class="px-6 py-4">{{ item.id }}</td>
       <td>{{ item.name }}</td>
       <td></td>
-      <td>{{ item.brand.name }}</td>
-      <td>{{ item.variants.length }}</td>
+      <!-- <td>{{ item.brand.name }}</td> -->
+      <td>{{ item.variantCount }}</td>
+      <td>{{ item.categories }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.stock }}</td>
       <td>{{ item.createdAt | textDate }}</td>
       <td>
-        <button
+        <!-- <button
           type="button"
           title=""
           [routerLink]="['../list', { outlets: { detail: ['variants'] } }]"
         >
           <mat-icon fontIcon="visibility" />
-        </button>
+        </button> -->
       </td>
     </tr>
     }
